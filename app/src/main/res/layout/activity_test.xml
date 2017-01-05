@@ -13,8 +13,18 @@
         android:id="@+id/top_img"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:transitionName="@string/transition"
-        android:scaleType="center" />
+        android:scaleType="center"
+        android:transitionName="@string/transition" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#e64e4e"
+        android:gravity="center"
+        android:text="化"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        android:transitionName="@string/transition_more" />
 
     <TextView
         android:layout_width="match_parent"

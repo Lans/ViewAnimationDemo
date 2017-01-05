@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ViewAnimation</string>
     <string name="transition">shareAnimation</string>
+    <string name="transition_more">shareAnimationMore</string>
 </resources>

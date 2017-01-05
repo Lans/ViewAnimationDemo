@@ -6,20 +6,23 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
-import android.util.Pair;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.Window;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.support.v4.util.Pair;
 
 /**
  * Interpolators:插值器，调节动画的快慢
@@ -33,9 +36,11 @@ import android.view.animation.LinearInterpolator;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton FloatingButton;
-    private Intent intent;
-    private MainActivity mContext;
+    private FloatingActionButton FloatingButton = null;
+    private TextView change_tv = null;
+    private Intent intent = null;
+    private MainActivity mContext = null;
+    private LinearLayout activity_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +49,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
 
+        change_tv = (TextView) this.findViewById(R.id.change_tv);
+        activity_main = (LinearLayout) this.findViewById(R.id.activity_main);
         FloatingButton = (FloatingActionButton) this.findViewById(R.id.FloatingButton);
         FloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareAnimation(FloatingButton);
+                shareAnimation(FloatingButton, change_tv);
                 //Snackbar.make(v, "😯", Snackbar.LENGTH_SHORT).show();
             }
         });
@@ -174,12 +181,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //共享元素
-    public void shareAnimation(View view) {
-        ActivityOptionsCompat transitionActivityOptions =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        mContext, view, getResources().getString(R.string.transition));
+    public void shareAnimation(View view, View view2) {
+        //单个共享元素
+        /*ActivityOptionsCompat transitionActivityOptions
+                = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext, view, getResources().getString(R.string.transition));
+*/
+        //多个元素共享
+        ActivityOptionsCompat transitionActivityOptions
+                = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext, Pair.create(view, "shareAnimation"), Pair.create(view2, "shareAnimationMore"));
 
-        ActivityCompat.startActivity(mContext,
-                intent, transitionActivityOptions.toBundle());
+        startActivity(intent, transitionActivityOptions.toBundle());
+    }
+
+    //揭露动画
+    public void CircularRevealAnimator(View view) {
+       /* Display display = getWindow().getDecorView().getDisplay();
+        int width = display.getWidth();
+        int height = display.getHeight();
+        Animator circularReveal = ViewAnimationUtils.createCircularReveal(activity_main, 0, 0, 0, height + width / 2);
+        circularReveal.setDuration(2000);
+        circularReveal.setInterpolator(new AccelerateDecelerateInterpolator());
+        circularReveal.start();*/
+        startActivity(intent);
     }
 }
