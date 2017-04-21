@@ -3,6 +3,7 @@ package com.example.leishun.viewanimation;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 public class SlideActivity extends AppCompatActivity {
 
@@ -13,7 +14,6 @@ public class SlideActivity extends AppCompatActivity {
     }
 
     public void test(View view) {
-        finish();
-        overridePendingTransition(R.anim.slide_left_in,R.anim.slide_right_out);
+        view.startAnimation(AnimationUtils.loadAnimation(this,R.anim.scale_in));
     }
 }
