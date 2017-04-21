@@ -1,6 +1,7 @@
 package com.example.leishun.viewanimation;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
@@ -10,7 +11,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -86,5 +86,11 @@ public class TestActivity extends AppCompatActivity {
         circularReveal.setInterpolator(new AccelerateDecelerateInterpolator());
         circularReveal.start();
 
+    }
+
+    public void jump(View view) {
+        Intent intent = new Intent(this, SlideActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
     }
 }
